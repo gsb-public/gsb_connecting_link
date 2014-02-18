@@ -97,9 +97,10 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
     '#default_value' => $link->destination,
     '#element_validate' => array('gsb_connecting_link_destination_validate'),
   );
+  $default_sponsor = variable_get('gsb_connecting_link_sponsor_default', t('Graduate School of Business Library'));
   $form['sponsor'] = array(
     '#title' => t('Sponsor'),
-    '#description' => t("The sponsor for this link. Defaults to '@name'.", array('@name' => 'GSB')),
+    '#description' => t("The sponsor for this link. Defaults to '@name'.", array('@name' => $default_sponsor)),
     '#type' => 'textfield',
     '#default_value' => $link->sponsor,
   );

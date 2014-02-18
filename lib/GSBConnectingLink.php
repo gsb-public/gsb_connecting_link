@@ -74,7 +74,7 @@ class GSBConnectingLink {
    * @return string
    */
   public function getSponsor() {
-    $default = 'GSB';
+    $default = variable_get('gsb_connecting_link_sponsor_default', t('Graduate School of Business Library'));
     return $this->sponsor ?: $default;
   }
 
@@ -82,8 +82,8 @@ class GSBConnectingLink {
    * @return string
    */
   public function getSponsorMessage() {
-    $message = 'This is sponsored by';
-    return t('@message @sponsor.', array('@message' => $message, '@sponsor' => $this->getSponsor()));
+    $message = variable_get('gsb_connecting_link_sponsor_message', t('Paid and licensed for you by'));
+    return format_string('@message @sponsor.', array('@message' => $message, '@sponsor' => $this->getSponsor()));
   }
 
   /**
