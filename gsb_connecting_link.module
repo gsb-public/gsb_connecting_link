@@ -72,7 +72,7 @@ function gsb_connecting_link_load($alias) {
  */
 function gsb_connecting_link_redirect(\GSBConnectingLink $link) {
   dpm($link);
-  return $link->getSponsor();
+  return $link->getSponsorMessage();
 }
 
 /**
@@ -97,7 +97,7 @@ function gsb_connecting_link_overview() {
     $row['name'] = $link->name;
     $row['alias'] = $link->alias;
     $row['destination'] = $link->destination;
-    $row['sponsor'] = $link->sponsor;
+    $row['sponsor'] = $link->getSponsor();
     $row['type'] = $link->getType();
 
     $operations['edit'] = array(
@@ -145,29 +145,42 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
   );
   $form['name'] = array(
     '#title' => t('Name'),
+    '#description' => t('The name of this link. For administrative purposes only.'),
     '#type' => 'textfield',
     '#required' => TRUE,
     '#default_value' => $link->name,
   );
   $form['alias'] = array(
     '#title' => t('Alias'),
-    '#type' => 'textfield',
+    '#type' => 'machine_name',
+    '#description' => t('A unique link alias. Can only contain lowercase letters, numbers, and hyphens.'),
+    '#machine_name' => array(
+      'source' => FALSE,
+      'replace_pattern' => '[^a-z0-9-]+',
+      'replace' => '-',
+      'exists' => 'gsb_connecting_link_load',
+    ),
+    '#field_prefix' => 'library/links/',
     '#required' => TRUE,
     '#default_value' => $link->alias,
   );
   $form['destination'] = array(
     '#title' => t('Destination'),
+    '#description' => t("An absolute URL, including 'http://'."),
     '#type' => 'textfield',
     '#required' => TRUE,
     '#default_value' => $link->destination,
+    '#element_validate' => array('gsb_connecting_link_destination_validate'),
   );
   $form['sponsor'] = array(
     '#title' => t('Sponsor'),
+    '#description' => t("The sponsor for this link. Defaults to 'GSB'."),
     '#type' => 'textfield',
     '#default_value' => $link->sponsor,
   );
   $form['type'] = array(
     '#title' => t('Type'),
+    '#description' => t('The type of this link. For administrative purposes only.'),
     '#type' => 'select',
     '#options' => $link->getTypeOptions(),
     '#required' => TRUE,
@@ -179,6 +192,15 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
     '#value' => t('Save'),
   );
   return $form;
+}
+
+/**
+ * #element_validate callback: Ensures the destination is absolute.
+ */
+function gsb_connecting_link_destination_validate(&$element, &$form_state, $complete_form) {
+  if (!url_is_external($element['#value'])) {
+    form_error($element, t('The destination must be an absolute URL.'));
+  }
 }
 
 /**

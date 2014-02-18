@@ -36,15 +36,17 @@ class GSBConnectingLink {
   }
   public function getSponsor() {
     $default = 'GSB';
+    return $this->sponsor ?: $default;
+  }
+  public function getSponsorMessage() {
     $message = 'This is sponsored by';
-    $sponsor = $this->sponsor ?: $default;
-    return t('@message @sponsor.', array('@message' => $message, '@sponsor' => $sponsor));
+    return t('@message @sponsor.', array('@message' => $message, '@sponsor' => $this->getSponsor()));
   }
 
   /**
    * @param string $alias
    *
-   * @return \GSBConnectingLink
+   * @return \GSBConnectingLink|null
    */
   public static function loadByAlias($alias) {
     $query = db_select('gsb_connecting_link', 'cl');
@@ -52,7 +54,7 @@ class GSBConnectingLink {
     $query->condition('alias', $alias);
 
     $links = $query->execute()->fetchAllAssoc('alias', 'GSBConnectingLink');
-    return $links[$alias];
+    return isset($links[$alias]) ? $links[$alias] : NULL;
   }
 
   /**
