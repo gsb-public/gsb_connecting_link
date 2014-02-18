@@ -22,13 +22,16 @@ class GSBConnectingLink {
       'ebook' => t('eBook'),
     );
   }
+  public function isNew() {
+    return empty($this->alias);
+  }
   public function getType() {
     $options = $this->getTypeOptions();
     return $options[$this->type];
   }
   public function delete() {
     db_delete('gsb_connecting_link')
-      ->condition('clid', $this->clid)
+      ->condition('alias', $this->alias)
       ->execute();
   }
   public function getSponsor() {
@@ -62,7 +65,7 @@ class GSBConnectingLink {
     $query->fields('cl');
     $query->orderByHeader($header);
 
-    return $query->execute()->fetchAllAssoc('clid', 'GSBConnectingLink');
+    return $query->execute()->fetchAllAssoc('alias', 'GSBConnectingLink');
   }
 
 }

@@ -12,11 +12,6 @@ function gsb_connecting_link_schema() {
   $schema['gsb_connecting_link'] = array(
     'description' => t('GSB Connecting Links'),
     'fields' => array(
-      'clid' => array(
-        'description' => t('Unique connecting link ID'),
-        'type' => 'serial',
-        'not null' => TRUE,
-      ),
       'name' => array(
         'description' => t('Link name'),
         'type' => 'varchar',
@@ -48,10 +43,7 @@ function gsb_connecting_link_schema() {
         'not null' => TRUE,
       ),
     ),
-    'primary key' => array('clid'),
-    'indexes' => array(
-      'alias' => array('alias'),
-    ),
+    'primary key' => array('alias'),
   );
 
   return $schema;

@@ -139,9 +139,9 @@ function gsb_connecting_link_add_page() {
  * Form constructor for the connecting link form.
  */
 function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link) {
-  $form['clid'] = array(
+  $form['is_new'] = array(
     '#type' => 'value',
-    '#value' => $link->clid,
+    '#value' => $link->isNew(),
   );
   $form['name'] = array(
     '#title' => t('Name'),
@@ -185,12 +185,12 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
  * Form submission handler for gsb_connecting_link_form().
  */
 function gsb_connecting_link_form_submit(&$form, &$form_state) {
-  if (empty($form_state['values']['clid'])) {
+  if (!empty($form_state['values']['is_new'])) {
     drupal_write_record('gsb_connecting_link', $form_state['values']);
     drupal_set_message(t('Connecting link %name has been added', array('%name' => $form_state['values']['name'])));
   }
   else {
-    drupal_write_record('gsb_connecting_link', $form_state['values'], array('clid'));
+    drupal_write_record('gsb_connecting_link', $form_state['values'], array('alias'));
     drupal_set_message(t('Connecting link %name has been updated', array('%name' => $form_state['values']['name'])));
   }
   $form_state['redirect'] = 'admin/config/gsb/connecting-link';
