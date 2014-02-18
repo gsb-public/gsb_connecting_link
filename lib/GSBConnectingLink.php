@@ -108,6 +108,7 @@ class GSBConnectingLink {
   public static function loadFromPager($header) {
     $query = db_select('gsb_connecting_link', 'cl')->extend('TableSort')->extend('PagerDefault');
     $query->fields('cl');
+    $query->limit(50);
     $query->orderByHeader($header);
 
     return $query->execute()->fetchAllAssoc('alias', 'GSBConnectingLink');

@@ -48,6 +48,7 @@ function gsb_connecting_link_overview() {
     '#rows' => $rows,
     '#empty' => t('No connecting links available.'),
   );
+  $build['pager'] = array('#theme' => 'pager');
   return $build;
 }
 
