@@ -53,6 +53,31 @@ function gsb_connecting_link_overview() {
 }
 
 /**
+ * Form constructor for the GSB Connecting Link settings form.
+ */
+function gsb_connecting_link_settings_form($form, &$form_state) {
+  $form['gsb_connecting_link_redirect_delay'] = array(
+    '#title' => t('Redirect delay'),
+    '#type' => 'select',
+    '#options' => range(0, 15),
+    '#default_value' => variable_get('gsb_connecting_link_redirect_delay', 3),
+    '#field_suffix' => t('seconds'),
+  );
+  $form['gsb_connecting_link_sponsor_default'] = array(
+    '#title' => t('Default sponsor name'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('gsb_connecting_link_sponsor_default', t('Graduate School of Business Library')),
+  );
+  $form['gsb_connecting_link_sponsor_message'] = array(
+    '#title' => t('Sponsor message'),
+    '#description' => t('This will be prepended to the sponsor name.'),
+    '#type' => 'textfield',
+    '#default_value' => variable_get('gsb_connecting_link_sponsor_message', t('Paid and licensed for you by')),
+  );
+  return system_settings_form($form);
+}
+
+/**
  * Page callback for adding a new connecting link.
  */
 function gsb_connecting_link_add_page() {
@@ -116,7 +141,7 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Save'),
+    '#value' => t('Save link'),
   );
   return $form;
 }

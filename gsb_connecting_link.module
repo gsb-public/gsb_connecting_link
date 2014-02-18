@@ -18,6 +18,19 @@ function gsb_connecting_link_menu() {
     'access callback' => TRUE,
     'file' => 'gsb_connecting_link.admin.inc',
   );
+  $items['admin/config/gsb/connecting-link/overview'] = array(
+    'title' => 'Overview',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
+  $items['admin/config/gsb/connecting-link/settings'] = array(
+    'title' => 'Settings',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('gsb_connecting_link_settings_form'),
+    // @todo.
+    'access callback' => TRUE,
+    'file' => 'gsb_connecting_link.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
   $items['admin/config/gsb/connecting-link/add'] = array(
     'title' => 'Add connecting link',
     'page callback' => 'gsb_connecting_link_add_page',

@@ -53,6 +53,7 @@ function gsb_connecting_link_schema() {
  * Implements hook_uninstall().
  */
 function gsb_connecting_link_uninstall() {
+  variable_del('gsb_connecting_link_redirect_delay');
   variable_del('gsb_connecting_link_sponsor_default');
   variable_del('gsb_connecting_link_sponsor_message');
 }
