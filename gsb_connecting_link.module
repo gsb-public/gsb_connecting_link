@@ -79,6 +79,17 @@ function gsb_connecting_link_load($alias) {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function gsb_connecting_link_theme($existing, $type, $theme, $path) {
+  return array(
+    'gsb_connecting_link_sponsor_message' => array(
+      'variables' => array('message' => NULL, 'sponsor' => NULL),
+    ),
+  );
+}
+
+/**
  * Page callback: Builds the connecting link redirect page.
  *
  * @param \GSBConnectingLink $link
@@ -88,6 +99,41 @@ function gsb_connecting_link_load($alias) {
  *   The connecting link redirect page.
  */
 function gsb_connecting_link_redirect(\GSBConnectingLink $link) {
-  dpm($link);
-  return $link->getSponsorMessage();
+  $build = array(
+    '#theme' => 'gsb_connecting_link_sponsor_message',
+    '#sponsor' => $link->getSponsor(),
+  );
+  $build['#attached']['js'][] = drupal_get_path('module', 'gsb_connecting_link') . '/gsb_connecting_link.js';
+  $build['#attached']['js'][] = array(
+    'type' => 'setting',
+    'data' => array(
+      'gsb_connecting_link' => array(
+        'redirect_delay' => variable_get('gsb_connecting_link_redirect_delay', 3),
+        'destination' => $link->destination,
+      ),
+    ),
+  );
+  return $build;
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for gsb_connecting_link_sponsor_message().
+ */
+function template_preprocess_gsb_connecting_link_sponsor_message(&$variables) {
+  if (!isset($variables['message'])) {
+    $variables['message'] = variable_get('gsb_connecting_link_sponsor_message', t('Paid and licensed for you by'));
+  }
+}
+
+/**
+ * Returns HTML for the sponsor message.
+ */
+function theme_gsb_connecting_link_sponsor_message($variables) {
+  $output = '';
+  $output .= '<div class="sponsor-message">';
+  $output .= '<span class="message">' . check_plain($variables['message']) . '</span>';
+  $output .= ' ';
+  $output .= '<span class="sponsor">' . check_plain($variables['sponsor']) . '</span>';
+  $output .= '</div>';
+  return $output;
 }

@@ -79,14 +79,6 @@ class GSBConnectingLink {
   }
 
   /**
-   * @return string
-   */
-  public function getSponsorMessage() {
-    $message = variable_get('gsb_connecting_link_sponsor_message', t('Paid and licensed for you by'));
-    return format_string('@message @sponsor.', array('@message' => $message, '@sponsor' => $this->getSponsor()));
-  }
-
-  /**
    * @param string $alias
    *
    * @return \GSBConnectingLink|null
