@@ -1,0 +1,58 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the GSB Connecting Link module.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function gsb_connecting_link_schema() {
+  $schema['gsb_connecting_link'] = array(
+    'description' => t('GSB Connecting Links'),
+    'fields' => array(
+      'clid' => array(
+        'description' => t('Unique connecting link ID'),
+        'type' => 'serial',
+        'not null' => TRUE,
+      ),
+      'name' => array(
+        'description' => t('Link name'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'alias' => array(
+        'description' => t('Link alias'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'destination' => array(
+        'description' => t('Link destination'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'sponsor' => array(
+        'description' => t('Link sponsor'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+      'type' => array(
+        'description' => t('Link type'),
+        'type' => 'varchar',
+        'length' => '255',
+        'not null' => TRUE,
+      ),
+    ),
+    'primary key' => array('clid'),
+    'indexes' => array(
+      'alias' => array('alias'),
+    ),
+  );
+
+  return $schema;
+}

@@ -1,3 +1,4 @@
 name = GSB Connecting Link
 core = 7.x
 package = GSB
+files[] = lib/GSBConnectingLink.php
