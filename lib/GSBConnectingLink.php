@@ -39,20 +39,6 @@ class GSBConnectingLink {
   }
 
   /**
-   * @param int $clid
-   *
-   * @return \GSBConnectingLink
-   */
-  public static function load($clid) {
-    $query = db_select('gsb_connecting_link', 'cl');
-    $query->fields('cl');
-    $query->condition('clid', $clid);
-
-    $links = $query->execute()->fetchAllAssoc('clid', 'GSBConnectingLink');
-    return $links[$clid];
-  }
-
-  /**
    * @param string $alias
    *
    * @return \GSBConnectingLink

@@ -38,7 +38,7 @@ function gsb_connecting_link_menu() {
     // @todo.
     'access callback' => TRUE,
   );
-  $items['library/links/%gsb_connecting_link_by_alias'] = array(
+  $items['library/links/%gsb_connecting_link'] = array(
     'title' => 'Redirecting...',
     'page callback' => 'gsb_connecting_link_redirect',
     'page arguments' => array(2),
@@ -46,19 +46,6 @@ function gsb_connecting_link_menu() {
     'access callback' => TRUE,
   );
   return $items;
-}
-
-/**
- * Menu load callback: Loads a single connecting link.
- *
- * @param int $clid
- *   The connecting link ID.
- *
- * @return \GSBConnectingLink
- *   The connecting link object.
- */
-function gsb_connecting_link_load($clid) {
-  return \GSBConnectingLink::load($clid);
 }
 
 /**
@@ -70,7 +57,7 @@ function gsb_connecting_link_load($clid) {
  * @return \GSBConnectingLink
  *   The connecting link object.
  */
-function gsb_connecting_link_by_alias_load($alias) {
+function gsb_connecting_link_load($alias) {
   return \GSBConnectingLink::loadByAlias($alias);
 }
 
@@ -115,11 +102,11 @@ function gsb_connecting_link_overview() {
 
     $operations['edit'] = array(
       'title' => t('Edit'),
-      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->clid,
+      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->alias,
     );
     $operations['delete'] = array(
       'title' => t('Delete'),
-      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->clid . '/delete',
+      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->alias . '/delete',
     );
     $row['operations'] = array(
       'data' => array(
