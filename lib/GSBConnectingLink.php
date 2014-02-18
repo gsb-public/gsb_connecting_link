@@ -9,12 +9,35 @@
  * Class GSBConnectingLink.
  */
 class GSBConnectingLink {
-  public $clid;
+
+  /**
+   * @var string
+   */
   public $name;
+
+  /**
+   * @var string
+   */
   public $alias;
+
+  /**
+   * @var
+   */
   public $destination;
+
+  /**
+   * @var string
+   */
   public $sponsor;
+
+  /**
+   * @var string
+   */
   public $type;
+
+  /**
+   * @return array
+   */
   public function getTypeOptions() {
     return array(
       'ejournal' => t('eJournal'),
@@ -22,22 +45,42 @@ class GSBConnectingLink {
       'ebook' => t('eBook'),
     );
   }
+
+  /**
+   * @return bool
+   */
   public function isNew() {
     return empty($this->alias);
   }
+
+  /**
+   * @return string
+   */
   public function getType() {
     $options = $this->getTypeOptions();
-    return $options[$this->type];
+    return isset($options[$this->type]) ? $options[$this->type] : '';
   }
+
+  /**
+   * Deletes the connecting link.
+   */
   public function delete() {
     db_delete('gsb_connecting_link')
       ->condition('alias', $this->alias)
       ->execute();
   }
+
+  /**
+   * @return string
+   */
   public function getSponsor() {
     $default = 'GSB';
     return $this->sponsor ?: $default;
   }
+
+  /**
+   * @return string
+   */
   public function getSponsorMessage() {
     $message = 'This is sponsored by';
     return t('@message @sponsor.', array('@message' => $message, '@sponsor' => $this->getSponsor()));
