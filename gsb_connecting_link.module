@@ -75,7 +75,7 @@ function gsb_connecting_link_load($alias) {
 /**
  * Implements hook_permission().
  */
-function gsb_connecting_link_permisssion() {
+function gsb_connecting_link_permission() {
   return array(
     'administer connecting links' =>  array(
       'title' => t('Administer connecting links'),
