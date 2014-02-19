@@ -20,8 +20,8 @@ function gsb_connecting_link_overview() {
   foreach ($links as $link) {
     $row = array();
     $row['name'] = $link->name;
-    $row['alias'] = $link->alias;
-    $row['destination'] = $link->destination;
+    $row['alias'] = l($link->alias, 'library/links/' . $link->alias);
+    $row['destination'] = l($link->destination, $link->destination);
     $row['sponsor'] = $link->getSponsor();
     $row['type'] = $link->getType();
 
