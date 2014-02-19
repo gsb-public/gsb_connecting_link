@@ -8,7 +8,7 @@
   "use strict";
 
   /**
-   * Transform a set of A-Z links to update via AJAX.
+   * Redirects to a given destination after a delay.
    */
   Drupal.behaviors.gsbConnectingLinks = {
     attach: function (context, settings) {
