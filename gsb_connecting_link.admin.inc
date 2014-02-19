@@ -65,6 +65,7 @@ function gsb_connecting_link_settings_form($form, &$form_state) {
   );
   $form['gsb_connecting_link_sponsor_default'] = array(
     '#title' => t('Default sponsor name'),
+    '#description' => t('This will be used if no sponsor is entered for a link.'),
     '#type' => 'textfield',
     '#default_value' => variable_get('gsb_connecting_link_sponsor_default', t('Graduate School of Business Library')),
   );
@@ -72,7 +73,7 @@ function gsb_connecting_link_settings_form($form, &$form_state) {
     '#title' => t('Sponsor message'),
     '#description' => t('This will be prepended to the sponsor name.'),
     '#type' => 'textfield',
-    '#default_value' => variable_get('gsb_connecting_link_sponsor_message', t('Paid and licensed for you by')),
+    '#default_value' => variable_get('gsb_connecting_link_sponsor_message', t('Paid and Licensed for you by')),
   );
   return system_settings_form($form);
 }
@@ -104,7 +105,7 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
   $form['alias'] = array(
     '#title' => t('Alias'),
     '#type' => 'machine_name',
-    '#description' => t('A unique link alias. Can only contain lowercase letters, numbers, and hyphens.'),
+    '#description' => t('A unique link alias. Can only contain lowercase letters, numbers, and hyphens. This cannot be changed after saving.'),
     '#machine_name' => array(
       'source' => FALSE,
       'replace_pattern' => '[^a-z0-9-]+',
@@ -114,6 +115,7 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
     '#field_prefix' => 'library/links/',
     '#required' => TRUE,
     '#default_value' => $link->alias,
+    '#disabled' => !$link->isNew(),
   );
   $form['destination'] = array(
     '#title' => t('Destination'),

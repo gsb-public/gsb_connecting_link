@@ -51,7 +51,7 @@ function gsb_connecting_link_menu() {
     'file' => 'gsb_connecting_link.admin.inc',
   );
   $items['library/links/%gsb_connecting_link'] = array(
-    'title' => 'Redirecting...',
+    'title' => 'Connecting...',
     'page callback' => 'gsb_connecting_link_redirect',
     'page arguments' => array(2),
     'access arguments' => array('administer connecting links'),
@@ -127,7 +127,7 @@ function gsb_connecting_link_redirect(\GSBConnectingLink $link) {
  */
 function template_preprocess_gsb_connecting_link_sponsor_message(&$variables) {
   if (!isset($variables['message'])) {
-    $variables['message'] = variable_get('gsb_connecting_link_sponsor_message', t('Paid and licensed for you by'));
+    $variables['message'] = variable_get('gsb_connecting_link_sponsor_message', t('Paid and Licensed for you by'));
   }
 }
 
