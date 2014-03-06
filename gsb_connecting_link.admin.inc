@@ -20,7 +20,7 @@ function gsb_connecting_link_overview() {
   foreach ($links as $link) {
     $row = array();
     $row['name'] = $link->name;
-    $row['alias'] = l($link->alias, 'library/links/' . $link->alias);
+    $row['alias'] = l($link->alias, 'library/articles/' . $link->type . '/links/' . $link->alias);
     $row['destination'] = l($link->destination, $link->destination);
     $row['sponsor'] = $link->getSponsor();
     $row['type'] = $link->getType();
@@ -112,7 +112,6 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
       'replace' => '-',
       'exists' => 'gsb_connecting_link_load',
     ),
-    '#field_prefix' => 'library/links/',
     '#required' => TRUE,
     '#default_value' => $link->alias,
     '#disabled' => !$link->isNew(),

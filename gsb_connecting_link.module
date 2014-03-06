@@ -50,11 +50,11 @@ function gsb_connecting_link_menu() {
     'access arguments' => array('administer connecting links'),
     'file' => 'gsb_connecting_link.admin.inc',
   );
-  $items['library/links/%gsb_connecting_link'] = array(
+  $items['library/articles/%/links/%gsb_connecting_link'] = array(
     'title' => 'Connecting...',
     'page callback' => 'gsb_connecting_link_redirect',
-    'page arguments' => array(2),
-    'access arguments' => array('administer connecting links'),
+    'page arguments' => array(4),
+    'access callback' => TRUE,
   );
   return $items;
 }
