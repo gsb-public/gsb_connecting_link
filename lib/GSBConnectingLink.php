@@ -52,9 +52,9 @@ class GSBConnectingLink {
    */
   public function getTypeOptions() {
     return array(
-      'ejournal' => t('eJournal'),
-      'database' => t('Database'),
-      'ebook' => t('eBook'),
+      'ejournals' => t('eJournals'),
+      'databases' => t('Databases'),
+      'ebooks' => t('eBooks'),
     );
   }
 
