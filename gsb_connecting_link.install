@@ -43,7 +43,7 @@ function gsb_connecting_link_schema() {
         'not null' => TRUE,
       ),
     ),
-    'primary key' => array('alias'),
+    'primary key' => array('type', 'alias'),
   );
 
   return $schema;

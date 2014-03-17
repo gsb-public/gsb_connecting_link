@@ -54,6 +54,7 @@ function gsb_connecting_link_menu() {
     'title' => 'Connecting...',
     'page callback' => 'gsb_connecting_link_redirect',
     'page arguments' => array(4),
+    'load arguments' => array(2),
     'access callback' => TRUE,
   );
   return $items;
@@ -64,12 +65,14 @@ function gsb_connecting_link_menu() {
  *
  * @param string $alias
  *   The connecting link alias.
+ * @param string $type
+ *   The connecting link type.
  *
  * @return \GSBConnectingLink
  *   The connecting link object.
  */
-function gsb_connecting_link_load($alias) {
-  return \GSBConnectingLink::loadByAlias($alias);
+function gsb_connecting_link_load($alias, $type) {
+  return \GSBConnectingLink::loadByAlias($alias, $type);
 }
 
 /**

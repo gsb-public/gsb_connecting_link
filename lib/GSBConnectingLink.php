@@ -99,14 +99,18 @@ class GSBConnectingLink {
    * Loads a given link by its alias.
    *
    * @param string $alias
+   *   The connecting link alias.
+   * @param string $type
+   *   The connecting link type.
    *
    * @return \GSBConnectingLink|bool
    *   The link object, or FALSE if none exist with that alias.
    */
-  public static function loadByAlias($alias) {
+  public static function loadByAlias($alias, $type) {
     $query = db_select('gsb_connecting_link', 'cl')
       ->fields('cl')
       ->condition('alias', $alias)
+      ->condition('type', $type)
       ->execute();
 
     return $query->fetchObject('GSBConnectingLink');
@@ -129,7 +133,12 @@ class GSBConnectingLink {
       ->orderByHeader($header)
       ->execute();
 
-    return $query->fetchAllAssoc('alias', 'GSBConnectingLink');
+    $return = array();
+    $query->setFetchMode(PDO::FETCH_CLASS, 'GSBConnectingLink');
+    foreach ($query as $record) {
+      $return[] = $record;
+    }
+    return $return;
   }
 
 }
