@@ -110,7 +110,7 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
       'source' => FALSE,
       'replace_pattern' => '[^a-z0-9-]+',
       'replace' => '-',
-      'exists' => 'gsb_connecting_link_load',
+      'exists' => 'gsb_connecting_link_exists',
     ),
     '#required' => TRUE,
     '#default_value' => $link->alias,
@@ -145,6 +145,23 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
     '#value' => t('Save link'),
   );
   return $form;
+}
+
+/**
+ * Callback for form_validate_machine_name().
+ *
+ * @param string $value
+ *   The value of the element being validated.
+ * @param array $element
+ *   An associative array representing the element being validated.
+ * @param array $form_state
+ *   An associative array containing the current state of the form.
+ *
+ * @return bool
+ *   TRUE if the link exists, FALSE otherwise.
+ */
+function gsb_connecting_link_exists($value, $element, $form_state) {
+  return (bool) \GSBConnectingLink::loadByAlias($value, $form_state['values']['type']);
 }
 
 /**
