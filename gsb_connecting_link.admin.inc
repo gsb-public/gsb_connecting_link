@@ -102,6 +102,14 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
     '#required' => TRUE,
     '#default_value' => $link->name,
   );
+  $form['type'] = array(
+    '#title' => t('Type'),
+    '#description' => t('The type of this link. For administrative purposes only.'),
+    '#type' => 'select',
+    '#options' => $link->getTypeOptions(),
+    '#required' => TRUE,
+    '#default_value' => $link->type,
+  );
   $form['alias'] = array(
     '#title' => t('Alias'),
     '#type' => 'machine_name',
@@ -130,14 +138,6 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
     '#description' => t("The sponsor for this link. Defaults to '@name'.", array('@name' => $default_sponsor)),
     '#type' => 'textfield',
     '#default_value' => $link->sponsor,
-  );
-  $form['type'] = array(
-    '#title' => t('Type'),
-    '#description' => t('The type of this link. For administrative purposes only.'),
-    '#type' => 'select',
-    '#options' => $link->getTypeOptions(),
-    '#required' => TRUE,
-    '#default_value' => $link->type,
   );
   $form['actions'] = array('#type' => 'actions');
   $form['actions']['submit'] = array(
