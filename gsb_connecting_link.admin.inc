@@ -27,11 +27,11 @@ function gsb_connecting_link_overview() {
 
     $operations['edit'] = array(
       'title' => t('Edit'),
-      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->alias,
+      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->alias . '/' . $link->type,
     );
     $operations['delete'] = array(
       'title' => t('Delete'),
-      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->alias . '/delete',
+      'href' => 'admin/config/gsb/connecting-link/manage/' . $link->alias . '/' . $link->type . '/delete',
     );
     $row['operations'] = array(
       'data' => array(

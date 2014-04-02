@@ -36,17 +36,19 @@ function gsb_connecting_link_menu() {
     'type' => MENU_LOCAL_ACTION,
     'file' => 'gsb_connecting_link.admin.inc',
   );
-  $items['admin/config/gsb/connecting-link/manage/%gsb_connecting_link'] = array(
+  $items['admin/config/gsb/connecting-link/manage/%gsb_connecting_link/%'] = array(
     'title' => 'Edit connecting link',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('gsb_connecting_link_form', 5),
+    'load arguments' => array(6),
     'access arguments' => array('administer connecting links'),
     'file' => 'gsb_connecting_link.admin.inc',
   );
-  $items['admin/config/gsb/connecting-link/manage/%gsb_connecting_link/delete'] = array(
+  $items['admin/config/gsb/connecting-link/manage/%gsb_connecting_link/%/delete'] = array(
     'title' => 'Delete connecting link',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('gsb_connecting_link_delete_form', 5),
+    'load arguments' => array(6),
     'access arguments' => array('administer connecting links'),
     'file' => 'gsb_connecting_link.admin.inc',
   );
