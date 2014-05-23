@@ -141,10 +141,10 @@ function template_preprocess_gsb_connecting_link_sponsor_message(&$variables) {
  */
 function theme_gsb_connecting_link_sponsor_message($variables) {
   $output = '';
-  $output .= '<div class="sponsor-message">';
+  $output .= '<div class="sponsor-message intro-copy">';
   $output .= '<span class="message">' . check_plain($variables['message']) . '</span>';
   $output .= ' ';
-  $output .= '<span class="sponsor">' . check_plain($variables['sponsor']) . '</span>';
+  $output .= '<span class="sponsor"><strong>' . check_plain($variables['sponsor']) . '</strong></span>';
   $output .= '</div>';
   return $output;
 }
