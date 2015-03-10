@@ -68,7 +68,7 @@ function gsb_connecting_link_update_7001() {
 
 /**
  * Update {gsb_connecting_link} to convert aliases
- * to have hypens instead of underscores.
+ * to have hyphens instead of underscores.
  */
 function gsb_connecting_link_update_7002() {
   $links = db_query('SELECT name, alias FROM {gsb_connecting_link}', array())->fetchAll();
