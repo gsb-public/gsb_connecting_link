@@ -96,3 +96,32 @@ function gsb_connecting_link_update_7002() {
     }
   }
 }
+
+/**
+ * Make redirects for all connecting links that have hyphens.
+ * For example:
+ *   from $source: library/articles/databases/links/audit_via_wrds
+ *   to $redirect_to: library/articles/databases/links/audit-via-wrds
+ */
+function gsb_connecting_link_update_7003() {
+  $links = db_query('SELECT name, alias, type FROM {gsb_connecting_link}', array())->fetchAll();
+  foreach ($links as $link) {
+    if (strpos($link->alias, '-') !== false) {
+      $source = str_replace('-', '_', $link->alias);
+      $redirect_to = 'library/articles/' . $link->type . '/links/' . $link->alias;
+      $source = 'library/articles/' . $link->type . '/links/' . $source;
+      $redirect = new stdClass();
+      redirect_object_prepare(
+        $redirect,
+        array(
+          'source' => $source,
+          'source_options' => array(),
+          'redirect' => $redirect_to,
+          'redirect_options' => array(),
+          'language' => LANGUAGE_NONE,
+        )
+      );
+      redirect_save($redirect);
+    }
+  }
+}
