@@ -110,6 +110,7 @@ function gsb_connecting_link_theme($existing, $type, $theme, $path) {
  *   The connecting link redirect page.
  */
 function gsb_connecting_link_redirect(\GSBConnectingLink $link) {
+  drupal_alter('gsb_connecting_link_redirect', $link);
   $build = array(
     '#theme' => 'gsb_connecting_link_sponsor_message',
     '#sponsor' => $link->getSponsor(),
@@ -147,4 +148,11 @@ function theme_gsb_connecting_link_sponsor_message($variables) {
   $output .= '<span class="sponsor"><strong>' . check_plain($variables['sponsor']) . '</strong></span>';
   $output .= '</div>';
   return $output;
+}
+
+/**
+ * Alter the links for urls that need special parameters.
+ */
+function gsb_connecting_link_gsb_connecting_link_alter(&$link) {
+
 }
