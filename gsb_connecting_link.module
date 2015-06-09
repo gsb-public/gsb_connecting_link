@@ -154,6 +154,12 @@ function theme_gsb_connecting_link_sponsor_message($variables) {
  * Alter the links for urls that need special parameters.
  */
 function gsb_connecting_link_gsb_connecting_link_redirect_alter(&$link) {
+  // if we are connecting via alumni login callback (uebc parameter set) 
+  if (isset($_GET['uebc'])) {
+    // then direct to the current path
+    drupal_goto(current_path());
+  }
+
   if (strpos($link->destination, 'onesource.com') !== false) {
     $params = get_onesource_params();
     $link->destination .= '&AT=' . $params['at'] . '&ST=' . $params['st'];
