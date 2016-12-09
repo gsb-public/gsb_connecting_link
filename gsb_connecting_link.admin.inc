@@ -129,7 +129,7 @@ function gsb_connecting_link_form($form, &$form_state, \GSBConnectingLink $link)
     '#description' => t("An absolute URL, including 'http://'."),
     '#type' => 'textfield',
     '#required' => TRUE,
-    '#maxlength' => 255,  
+    '#maxlength' => 512,  
     '#default_value' => $link->destination,
     '#element_validate' => array('gsb_connecting_link_destination_validate'),
   );
