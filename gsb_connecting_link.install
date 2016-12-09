@@ -125,3 +125,13 @@ function gsb_connecting_link_update_7003() {
     }
   }
 }
+
+/**
+ * Alter the destination field to have a new maxlength of 512
+ */
+function gsb_connecting_link_update_7004() {
+  $field_table = 'gsb_connecting_link';
+  $field_column = 'destination';
+  $new_length = 512;
+  db_query("ALTER TABLE `{$field_table}` MODIFY `{$field_column}` VARCHAR( {$new_length} ) NOT NULL");
+}
